@@ -1,0 +1,40 @@
+body {
+	margin: 20px;
+	padding: 20px;
+}
+
+.outer-wrapper {
+	border: dotted;
+	border-color: white;
+	width: 1080px;
+}
+
+.light-source-red {
+	float: left;
+	border: dotted;
+	border-color: red;
+	width: 200px;
+	height: 100px;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.light-source-blue {
+	float: left;
+	border: dotted;
+	border-color: blue;
+	width: 200px;
+	height: 100px;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.light-source-green {
+	float: left;
+	border: dotted;
+	border-color: green;
+	width: 200px;
+	height: 100px;
+	margin-left: 50px;
+	margin-right: 50px;
+}

@@ -1,38 +1,39 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <style>
-      body {
-        margin: 20px;
-        padding: 20px;
-      }
-    </style>
-  </head> 
-  <body>
-    <script src="jquery-1.11.1.min.js"></script>
-    <script src="rangeslider.min.js">
-        $('input[type="range"]').rangeslider();
-    </script>
-    <script src="library.js"></script>
+	<head>
+		<link type="text/css" rel="stylesheet" href="resources/css/default.css" />
+		<link type="text/css" rel="stylesheet" href="resources/css/range-input-skin.css" />
+		<script src="vendors/jquery/jquery-1.11.1.min.js"></script> 
+		<script src="vendors/rangeslider.js-0.2.9/rangeslider.min.js"></script>
+		<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+		<script src="resources/js/library.js"></script>
 
-    <h1>Light theesko</h1>
-    <canvas id="lightCanvas" width="800" height="600"></canvas>
-    <div>
-        <h2>Floating point boundaries</h2>
-        <input type="range" id="redSlider" min="0" max="100" step="1" value="10" data-rangeslider>
-        <output></output>
-    </div>
-    <script>
-      var canvas = document.getElementById('lightCanvas');
-      var canvasContext = canvas.getContext('2d');
-      initCanvas("lightCanvas", "black", "0.5");
+	</head> 
+	<body>
+	    <h1>Light theesko</h1>
+	    <div class="outer-wrapper">
+		    <div id="lightSourceWrapper" width="900" height="600">
+			    <div id="redSource" class="light-source-red">
+					<input type="range" name="redSlider" min="0" max="100" value="10" />
+			    </div>
+			    <div id="blueSource" class="light-source-blue"> 
+					<input type="range" name="blueSlider" min="0" max="100" value="10" />
+			    </div>
+			    <div id="greenSource" class="light-source-green"> 
+					<input type="range" name="greenSlider" min="0" max="100" value="10" />
+			    </div>
+			</div>
+		    <canvas id="lightCanvas" width="920" height="600"></canvas>
+	    </div>
 
-      $('input[type="range"]').rangeslider();
+	    <script>
+	      var canvas = document.getElementById('lightCanvas');
+	      var canvasContext = canvas.getContext('2d');
+	      initCanvas("lightCanvas", "black", "0.5");
+	        $(":range").rangeinput();
+	      // do cool things with the context
+	      
 
-
-      // initSlider("red");
-
-      // do cool things with the context
-    </script>
-  </body>
+	    </script>
+	</body>
 </html>
