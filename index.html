@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 20px;
+        padding: 20px;
+      }
+    </style>
+  </head> 
+  <body>
+    <script src="jquery-1.11.1.min.js"></script>
+    <script src="rangeslider.min.js">
+        $('input[type="range"]').rangeslider();
+    </script>
+    <script src="library.js"></script>
+
+    <h1>Light theesko</h1>
+    <canvas id="lightCanvas" width="800" height="600"></canvas>
+    <div>
+        <h2>Floating point boundaries</h2>
+        <input type="range" id="redSlider" min="0" max="100" step="1" value="10" data-rangeslider>
+        <output></output>
+    </div>
+    <script>
+      var canvas = document.getElementById('lightCanvas');
+      var canvasContext = canvas.getContext('2d');
+      initCanvas("lightCanvas", "black", "0.5");
+
+      $('input[type="range"]').rangeslider();
+
+
+      // initSlider("red");
+
+      // do cool things with the context
+    </script>
+  </body>
+</html>
