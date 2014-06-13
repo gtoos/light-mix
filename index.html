@@ -5,7 +5,7 @@
 		<link type="text/css" rel="stylesheet" href="resources/css/range-input-skin.css" />
 		<script src="vendors/jquery/jquery-1.11.1.min.js"></script> 
 		<script src="vendors/rangeslider.js-0.2.9/rangeslider.min.js"></script>
-		<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+		<script src="vendors/jquery/jquery.tools.min.js"></script>
 		<script src="resources/js/library.js"></script>
 
 	</head> 
@@ -36,15 +36,27 @@
 	      //initializing sliders
 	      $(":range").rangeinput();
 	      
+	      //setting the level colors (hard coding for the time being)
+	      var lR = 240;
+	      var lG = 120;
+	      var lB = 60;
+	      var levelColor = toRGBColor(lR, lG, lB);
+
 	      //initializing stage
-	      // initStage();
+	      initStage(levelColor);
 
 	      //initializing spotlight
 	      initSpotlight();
 
-	      // updateSpotlight(255, 255, 255);
-
-	      $(".slider").on("change", function() { draw(); });
+	      $(".slider").on("change", 
+	      	function() { 
+	      		draw();
+	      		if(isLevelComplete(lR, lG, lB)) {
+	      			console.log("level complete");
+	      		} else {
+	      			console.log("Try again");
+	      		} 
+	      });
 
 	    </script>
 	</body>

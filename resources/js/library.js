@@ -9,8 +9,24 @@ function initCanvas(canvasId, bgColor, opacity) {
 	canvas.style.opacity=opacity;
 }
 
-function initStage() {
+function initStage(levelColor) {
+	var canvas = document.getElementById("lightCanvas");
+	var canvasContext = canvas.getContext('2d');
+	
+	//Creating stage lights
+	var cX = parseInt(canvas.width/3);
+	var cY = parseInt(canvas.height/3);
+	var radius = 30;
 
+	canvasContext.beginPath();
+	canvasContext.arc(cX, cY, radius, 0, 2*Math.PI, false);
+	canvasContext.fillStyle = levelColor;
+	canvasContext.fill();
+
+
+	canvasContext.arc(2*cX, cY, radius, 0, 2*Math.PI, false);
+	canvasContext.fillStyle = levelColor;
+	canvasContext.fill();	
 }
 
 function initSpotlight() {
@@ -76,7 +92,7 @@ function updateSpotlight(r, g, b) {
 	canvasContext.restore();
 
 	//apply styling
-	canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b +")";
+	canvasContext.fillStyle = toRGBColor(r, g, b);
 	canvasContext.fill();
 	canvasContext.lineWidth = 5;
 	canvasContext.strokeStyle = 'black';
@@ -94,4 +110,25 @@ function draw() {
 	console.log("g = " + g); 	
 	console.log("b = " + b); 	
 	updateSpotlight(r, g, b);
+}
+
+function isLevelComplete(r, g, b) {
+	var tolerance = 10; //tolerance set as +/- 5% (can change it according to UX feedback)
+	var scale = 255/100; //TODO make global
+
+	var scaledTolerance = tolerance * scale/2;
+
+	//getting the selected r, g, b, values
+	var sR = parseInt($("input[name=redSlider]").val() * scale);
+	var sB = parseInt($("input[name=blueSlider]").val() * scale);
+	var sG = parseInt($("input[name=greenSlider]").val() * scale);	
+
+	if((Math.abs(r - sR) <= scaledTolerance) && (Math.abs(g - sG) <= scaledTolerance) && (Math.abs(b - sB) <= scaledTolerance)) {
+		return true;
+	}
+	return false;
+}
+
+function toRGBColor(r, g, b) {
+	return "rgb(" + r + "," + g + "," + b +")";
 }
