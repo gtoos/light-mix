@@ -14,50 +14,58 @@
 	    <div class="outer-wrapper">
 		    <div id="lightSourceWrapper" width="900" height="600">
 			    <div id="redSource" class="light-source-red">
-					<input type="range" class="slider" name="redSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" id="red-slider" name="redSlider" min="0" max="100" value="10" />
 			    </div>
 			    <div id="blueSource" class="light-source-blue"> 
-					<input type="range" class="slider" name="blueSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" id="blue-slider" name="blueSlider" min="0" max="100" value="10" />
 			    </div>
 			    <div id="greenSource" class="light-source-green"> 
-					<input type="range" class="slider" name="greenSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" id="green-slider" name="greenSlider" min="0" max="100" value="10" />
 			    </div>
 			</div>
 		    <canvas id="lightCanvas" width="920" height="600"></canvas>
 	    </div>
 
 	    <script>
-	      var canvas = document.getElementById('lightCanvas');
-	      var canvasContext = canvas.getContext('2d');
+			var canvas = document.getElementById('lightCanvas');
+			var canvasContext = canvas.getContext('2d');
 
-	      //initializing canvas
-	      initCanvas("lightCanvas", "black", "0.5");
-	      
-	      //initializing sliders
-	      $(":range").rangeinput();
-	      
-	      //setting the level colors (hard coding for the time being)
-	      var lR = 240;
-	      var lG = 120;
-	      var lB = 60;
-	      var levelColor = toRGBColor(lR, lG, lB);
+			//initializing canvas
+			initCanvas("lightCanvas", "black", "0.5");
 
-	      //initializing stage
-	      initStage(levelColor);
+			//initializing sliders
+			$(":range").rangeinput();
 
-	      //initializing spotlight
-	      initSpotlight();
+			//initialize level	
+			var currentLevel = 1;
+			var finalLevel = 3;
 
-	      $(".slider").on("change", 
-	      	function() { 
-	      		draw();
-	      		if(isLevelComplete(lR, lG, lB)) {
-	      			console.log("level complete");
-	      		} else {
-	      			console.log("Try again");
-	      		} 
-	      });
+			initLevel(1);
 
-	    </script>
+	      	// Handling slider event
+	      	$(".slider").on("change", 
+		      	function() { 
+		      		draw();
+		      		if(isLevelComplete(255, 0, 0)) { //TODO change method to isLevelComplete(currentLevel)
+		      			levelCleanUp();
+		      			currentLevel++;
+
+		      			//Checking if final
+		      			if(currentLevel < finalLevel) {
+		      				initLevel(currentLevel);
+		      			} else {
+		      				console.log("game over");
+		      				alert("Game over");
+			      			currentLevel = 1;
+		      			}
+
+		      		} else {
+		      			console.log("Keep trying");
+		      		} 
+		    });
+
+		    // Handling exit event
+
+		</script>
 	</body>
 </html>

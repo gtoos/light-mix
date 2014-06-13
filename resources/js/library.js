@@ -64,6 +64,40 @@ function initSpotlight() {
 	canvasContext.stroke();
 }
 
+function initSliderValues(value) {
+	var redSliderObj = $("input[name=redSlider]");
+	redSliderObj.val(value);
+	redSliderObj.trigger("blur");
+
+	var blueSliderObj = $("input[name=blueSlider]");
+	blueSliderObj.val(value);
+	blueSliderObj.trigger("blur");
+
+	var greenSliderObj = $("input[name=greenSlider]");
+	greenSliderObj.val(value);
+	greenSliderObj.trigger("blur");
+}
+
+function initLevel(i) {
+
+	alert("Level " + i + " begin?"); //TODO replace pop up with proper text messages
+
+	//initializing slider values
+	initSliderValues(0);
+
+	//setting the level colors (hard coding for the time being)
+	var lR = 240;
+	var lG = 120;
+	var lB = 60;
+	var levelColor = toRGBColor(lR, lG, lB);
+
+	//initializing stage
+	initStage(levelColor);
+
+	//initializing spotlight
+	initSpotlight();
+}
+
 function updateSpotlight(r, g, b) {
 	var canvas = document.getElementById("lightCanvas");
 	var canvasContext = canvas.getContext('2d');
@@ -113,10 +147,10 @@ function draw() {
 }
 
 function isLevelComplete(r, g, b) {
-	var tolerance = 10; //tolerance set as +/- 5% (can change it according to UX feedback)
+	var tolerance = 5; //tolerance set as +/- 5% (can change it according to UX feedback)
 	var scale = 255/100; //TODO make global
 
-	var scaledTolerance = tolerance * scale/2;
+	var scaledTolerance = tolerance * scale;
 
 	//getting the selected r, g, b, values
 	var sR = parseInt($("input[name=redSlider]").val() * scale);
@@ -127,6 +161,11 @@ function isLevelComplete(r, g, b) {
 		return true;
 	}
 	return false;
+}
+
+function levelCleanUp() {
+	console.log("level complete");
+	alert("Level complete");
 }
 
 function toRGBColor(r, g, b) {
