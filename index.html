@@ -14,13 +14,13 @@
 	    <div class="outer-wrapper">
 		    <div id="lightSourceWrapper" width="900" height="600">
 			    <div id="redSource" class="light-source-red">
-					<input type="range" name="redSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" name="redSlider" min="0" max="100" value="10" />
 			    </div>
 			    <div id="blueSource" class="light-source-blue"> 
-					<input type="range" name="blueSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" name="blueSlider" min="0" max="100" value="10" />
 			    </div>
 			    <div id="greenSource" class="light-source-green"> 
-					<input type="range" name="greenSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" name="greenSlider" min="0" max="100" value="10" />
 			    </div>
 			</div>
 		    <canvas id="lightCanvas" width="920" height="600"></canvas>
@@ -29,10 +29,22 @@
 	    <script>
 	      var canvas = document.getElementById('lightCanvas');
 	      var canvasContext = canvas.getContext('2d');
+
+	      //initializing canvas
 	      initCanvas("lightCanvas", "black", "0.5");
-	        $(":range").rangeinput();
-	      // do cool things with the context
 	      
+	      //initializing sliders
+	      $(":range").rangeinput();
+	      
+	      //initializing stage
+	      // initStage();
+
+	      //initializing spotlight
+	      initSpotlight();
+
+	      // updateSpotlight(255, 255, 255);
+
+	      $(".slider").on("change", function() { draw(); });
 
 	    </script>
 	</body>
