@@ -1,3 +1,8 @@
+//Global settings
+var levelColors = ["255:0:0", "0:255:0", "0:0:255", "255:255:0", "255:0:255", "0:255:255"];
+var scale = 255/100; 	// RGB value scale
+var tolerance = 5; 		// Tolerance set as +/- 5% (can change it according to UX feedback)
+
 function initCanvas(canvasId, bgColor, opacity) {
 	var canvas = document.getElementById(canvasId);
 	h = parseInt(canvas.getAttribute("height"));
@@ -80,15 +85,16 @@ function initSliderValues(value) {
 
 function initLevel(i) {
 
-	alert("Level " + i + " begin?"); //TODO replace pop up with proper text messages
+	alert("Level " + (i+1) + " begin?"); //TODO replace pop up with proper text messages
 
 	//initializing slider values
 	initSliderValues(0);
 
-	//setting the level colors (hard coding for the time being)
-	var lR = 240;
-	var lG = 120;
-	var lB = 60;
+
+	var lR = levelColors[i].split(":")[0];
+	var lG = levelColors[i].split(":")[1];
+	var lB = levelColors[i].split(":")[2];
+
 	var levelColor = toRGBColor(lR, lG, lB);
 
 	//initializing stage
@@ -135,7 +141,6 @@ function updateSpotlight(r, g, b) {
 
 function draw() {
 
-	var scale = 255/100;
 	var r = parseInt($("input[name=redSlider]").val() * scale);
 	var b = parseInt($("input[name=blueSlider]").val() * scale);
 	var g = parseInt($("input[name=greenSlider]").val() * scale);
@@ -146,18 +151,20 @@ function draw() {
 	updateSpotlight(r, g, b);
 }
 
-function isLevelComplete(r, g, b) {
-	var tolerance = 5; //tolerance set as +/- 5% (can change it according to UX feedback)
-	var scale = 255/100; //TODO make global
-
+function isLevelComplete(currentLevel) {
 	var scaledTolerance = tolerance * scale;
+
+	//getting the expected level r, g, b values
+	var lR = levelColors[currentLevel].split(":")[0];
+	var lG = levelColors[currentLevel].split(":")[1];
+	var lB = levelColors[currentLevel].split(":")[2];
 
 	//getting the selected r, g, b, values
 	var sR = parseInt($("input[name=redSlider]").val() * scale);
 	var sB = parseInt($("input[name=blueSlider]").val() * scale);
 	var sG = parseInt($("input[name=greenSlider]").val() * scale);	
 
-	if((Math.abs(r - sR) <= scaledTolerance) && (Math.abs(g - sG) <= scaledTolerance) && (Math.abs(b - sB) <= scaledTolerance)) {
+	if((Math.abs(lR - sR) <= scaledTolerance) && (Math.abs(lG - sG) <= scaledTolerance) && (Math.abs(lB - sB) <= scaledTolerance)) {
 		return true;
 	}
 	return false;

@@ -37,16 +37,16 @@
 			$(":range").rangeinput();
 
 			//initialize level	
-			var currentLevel = 1;
-			var finalLevel = 3;
+			var currentLevel = 0;
+			var finalLevel = 5;
 
-			initLevel(1);
+			initLevel(currentLevel);
 
 	      	// Handling slider event
 	      	$(".slider").on("change", 
 		      	function() { 
 		      		draw();
-		      		if(isLevelComplete(255, 0, 0)) { //TODO change method to isLevelComplete(currentLevel)
+		      		if(isLevelComplete(currentLevel)) { 
 		      			levelCleanUp();
 		      			currentLevel++;
 
