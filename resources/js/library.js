@@ -85,8 +85,7 @@ function initSliderValues(value) {
 
 function initLevel(i) {
 
-	alert("Level " + (i+1) + " begin?"); //TODO replace pop up with proper text messages
-
+	// showPopMessage("Level " + (i+1), 3000);
 	//initializing slider values
 	initSliderValues(0);
 
@@ -172,9 +171,52 @@ function isLevelComplete(currentLevel) {
 
 function levelCleanUp() {
 	console.log("level complete");
-	alert("Level complete");
+	showPopMessage("Level complete", -1);
 }
 
 function toRGBColor(r, g, b) {
 	return "rgb(" + r + "," + g + "," + b +")";
+}
+
+// For message pop ups
+function deselect() {
+    $(".pop").slideFadeToggle(function() { 
+        $("#message-show").removeClass("selected");
+    });    
+}
+
+$(function() {
+    $("#message-show").live('click', function() {
+        if($(this).hasClass("selected")) {
+            deselect();               
+        } else {
+            $(this).addClass("selected");
+            $(".pop").slideFadeToggle(function() { });
+        }
+        return false;
+    });
+
+    $(".close").live('click', function() {
+        deselect();
+        return false;
+    });
+});
+
+$.fn.slideFadeToggle = function(easing, callback) {
+    return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
+};
+
+function showPopMessage(msg, duration) {
+	$("#message-pop-text").text(msg);
+	setTimeout(function(){
+		$("#message-show").click();
+		if(duration>0){
+			closePopMessage(duration);	
+		}}, 300);
+}
+
+function closePopMessage(duration) {
+	setTimeout(function() {
+		deselect();
+	}, duration);
 }
