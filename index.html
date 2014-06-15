@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 	<head>
 		<link type="text/css" rel="stylesheet" href="resources/css/default.css" />
 		<link type="text/css" rel="stylesheet" href="resources/css/range-input-skin.css" />
@@ -7,20 +7,19 @@
 		<script src="vendors/rangeslider.js-0.2.9/rangeslider.min.js"></script>
 		<script src="vendors/jquery/jquery.tools.min.js"></script>
 		<script src="resources/js/library.js"></script>
-
 	</head> 
 	<body>
 	    <h1>Light theesko</h1>
 	    <div class="outer-wrapper">
 		    <div id="lightSourceWrapper" width="900" height="600">
 			    <div id="redSource" class="light-source-red">
-					<input type="range" class="slider" id="red-slider" name="redSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" id="red-slider" name="redSlider" min="0" max="100" step ="5" value="10" />
 			    </div>
 			    <div id="blueSource" class="light-source-blue"> 
-					<input type="range" class="slider" id="blue-slider" name="blueSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" id="blue-slider" name="blueSlider" min="0" max="100" step ="5" value="10" />
 			    </div>
 			    <div id="greenSource" class="light-source-green"> 
-					<input type="range" class="slider" id="green-slider" name="greenSlider" min="0" max="100" value="10" />
+					<input type="range" class="slider" id="green-slider" name="greenSlider" min="0" max="100" step ="5" value="10" />
 			    </div>
 			    <div class="messagepop pop" id="message-pop">
 				  <p id="message-pop-text">Some instructions or something like that</p>
@@ -44,6 +43,8 @@
 			//initialize level	
 			var currentLevel = 0;
 			var finalLevel = 5;
+
+			showInstructions();
 
 			initLevel(currentLevel);
 

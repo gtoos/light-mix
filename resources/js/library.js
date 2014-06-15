@@ -1,7 +1,32 @@
 //Global settings
 var levelColors = ["255:0:0", "0:255:0", "0:0:255", "255:255:0", "255:0:255", "0:255:255"];
+var levelSpec = {
+    "level-1": {
+        "r": 255,
+        "g": 0,
+        "b": 0
+    },
+    "level-2": {
+        "r": 0,
+        "g": 255,
+        "b": 0
+    },
+    "level-3": {
+        "r": 0,
+        "g": 0,
+        "b": 255
+    }
+}; //TODO externalize as JSON spec file
+
+var messages = {
+	"hello": "Hello. Welcome to the game!",
+	"instructions": "Match the colour of the spot light to the colour of the balloons on the stage.",
+	"complete": "Level finished. Loading next level...",
+	"gameover": "Now that you have explored various colour combinations..."
+}; //TODO externalize as i18n file
+
 var scale = 255/100; 	// RGB value scale
-var tolerance = 5; 		// Tolerance set as +/- 5% (can change it according to UX feedback)
+var tolerance = 6; 		// Tolerance set as +/- 6% (can change it according to UX feedback)
 
 function initCanvas(canvasId, bgColor, opacity) {
 	var canvas = document.getElementById(canvasId);
@@ -85,12 +110,11 @@ function initSliderValues(value) {
 
 function initLevel(i) {
 
-	// showPopMessage("Level " + (i+1), 3000);
 	//initializing slider values
 	initSliderValues(0);
 
 
-	var lR = levelColors[i].split(":")[0];
+	var lR = levelColors[i].split(":")[0]; 
 	var lG = levelColors[i].split(":")[1];
 	var lB = levelColors[i].split(":")[2];
 
@@ -219,4 +243,8 @@ function closePopMessage(duration) {
 	setTimeout(function() {
 		deselect();
 	}, duration);
+}
+
+function showInstructions() {
+	showPopMessage(messages.instructions, -1);
 }

@@ -1,0 +1,14 @@
+{
+	"@metadata" : {
+		"author": "Jayanth Tadinada",
+		"last-updated": "today",
+		"locale": "en",
+	},
+
+	"en": {
+		"message-hello": "Hello. Welcome to the game!",
+		"message-module-instructions": "Match the colour of the spot light to the colour of the balloons on the stage.",
+		"message-level-complete": "Level finished. Loading next level...",
+		"message-game-over": "Now that you have explored various colour combinations..."
+	}
+}
