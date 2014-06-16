@@ -19,3 +19,10 @@ http://www.learnstagelighting.com/how-do-i-use-color-effectively/
 8. Subtractive mixing is what you can do with filters. 
 9. Printers who have to print the right shades of subtle colours use subtractive mixing. 
 10. Here is a video of how printers ink is made. 
+
+TODO: 
+1. CSS, colours and background
+2. Teaching content development
+3. Proper level design
+4. Other pages + navigation
+5. Code clean up
