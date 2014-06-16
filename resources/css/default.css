@@ -9,6 +9,20 @@ body {
 	width: 1080px;
 }
 
+.stage {
+	position: absolute;
+	left: 40px;
+	top: 230px;
+	z-index: 0;
+}
+
+.beam {
+	position: absolute;
+	left: 40px;
+	top: 230px;
+	z-index: 1;
+}
+
 .light-source-red {
 	float: left;
 	border: dotted;

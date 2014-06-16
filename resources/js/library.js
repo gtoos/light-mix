@@ -31,6 +31,27 @@ var tolerance = 6; 		// Tolerance set as +/- 6% (can change it according to UX f
 var levelMoves = []; 	//This is to store the current level moves 
 var levelResults = [];	//This is to save the results of the level
 
+var redBeamOriginX = 158;
+var redBeamOriginY = 0;
+var redBeamLeftX = 362;
+var redBeamLeftY = 500; 
+var redBeamRightX = 524;
+var redBeamRightY = 465;
+
+var greenBeamOriginX = 770;
+var greenBeamOriginY = 0;
+var greenBeamLeftX = 371;
+var greenBeamLeftY = 480; 
+var greenBeamRightX = 558;
+var greenBeamRightY = 500;
+
+var blueBeamOriginX = 460;
+var blueBeamOriginY = 0;
+var blueBeamLeftX = 362;
+var blueBeamLeftY = 500; 
+var blueBeamRightX = 558;
+var blueBeamRightY = 500;
+
 function initCanvas(canvasId, bgColor, opacity) {
 	var canvas = document.getElementById(canvasId);
 	h = parseInt(canvas.getAttribute("height"));
@@ -166,7 +187,6 @@ function updateSpotlight(r, g, b) {
 }
 
 function draw() {
-
 	var r = parseInt($("input[name=redSlider]").val() * scale);
 	var b = parseInt($("input[name=blueSlider]").val() * scale);
 	var g = parseInt($("input[name=greenSlider]").val() * scale);
@@ -176,6 +196,50 @@ function draw() {
 	console.log("b = " + b); 
 	levelMoves.push(r+":"+g+":"+b);	
 	updateSpotlight(r, g, b);
+	updateBeams(r, g, b);
+}
+
+function updateBeams(r, g, b) {
+	clearBeamCanvas();
+	drawBeam(redBeamOriginX, redBeamOriginY, redBeamLeftX, redBeamLeftY, "red", r);
+	drawBeam(redBeamOriginX, redBeamOriginY, redBeamRightX, redBeamRightY, "red", r);
+	drawBeam(greenBeamOriginX, greenBeamOriginY, greenBeamLeftX, greenBeamLeftY, "green", g);
+	drawBeam(greenBeamOriginX, greenBeamOriginY, greenBeamRightX, greenBeamRightY, "green", g);
+	drawBeam(blueBeamOriginX, blueBeamOriginY, blueBeamLeftX, blueBeamLeftY, "blue", b);
+	drawBeam(blueBeamOriginX, blueBeamOriginY, blueBeamRightX, blueBeamRightY, "blue", b);
+}
+
+function clearBeamCanvas() {
+	var beamCanvas = document.getElementById("beamCanvas");
+	var canvasContext = beamCanvas.getContext('2d');
+	canvasContext.clearRect(0, 0, beamCanvas.width, beamCanvas.height);
+}
+
+function drawBeam(fromX, fromY, toX, toY, color, intensity) {
+	var beamCanvas = document.getElementById("beamCanvas");
+	var canvasContext = beamCanvas.getContext('2d');
+
+	//preparing canvas
+	canvasContext.beginPath();
+	canvasContext.save();
+	canvasContext.moveTo(fromX, fromY); //(158, 0); //TODO remove hard coding
+
+	//Setting line properties
+	canvasContext.lineTo(toX, toY);     //(360, 500); //TODO remove hard coding
+	canvasContext.lineWidth = 2;
+	canvasContext.strokeStyle = color;
+	canvasContext.globalAlpha = computeTransparency(intensity);
+	canvasContext.shadowColor = color;
+    canvasContext.shadowBlur = 40;
+    canvasContext.shadowOffsetX = 3;
+    canvasContext.shadowOffsetY = 3;
+	canvasContext.stroke();
+
+	canvasContext.restore();
+}
+
+function computeTransparency(intensity) {
+	return 0.75 * intensity/(scale * 100);
 }
 
 function isLevelComplete(currentLevel) {
@@ -199,12 +263,12 @@ function isLevelComplete(currentLevel) {
 
 function levelCleanUp(currentLevel) {
 	console.log("currentLevel = "+currentLevel);
-	levelResults = levelMoves;
 	var imagesPath = "resources/images/";
 	imageFileName = "level-complete-" + currentLevel.toString() + ".jpg";
 	var imgSrc = imagesPath.concat(imageFileName);
 	$("#message-image").attr("src", imgSrc);
 	showPopMessage(messages.complete, -1);
+	clearBeamCanvas();
 }
 
 function toRGBColor(r, g, b) {

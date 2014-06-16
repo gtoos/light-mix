@@ -27,8 +27,9 @@
 		        <img id="message-image" src="resources/images/default.gif" />
 			    <p id="message-pop-text">Some instructions or something like that</p>
 			    <a class="close" href="/">Close</a>			    		
-			</div>
-		    <canvas id="lightCanvas" width="920" height="600"></canvas>
+			</div>	
+	    <canvas id="lightCanvas" class="stage" width="920" height="600"></canvas>
+   	    <canvas id="beamCanvas" class="beam" width="920" height="600"></canvas>
 	    </div>
 
 	    <script>
@@ -36,7 +37,7 @@
 			var canvasContext = canvas.getContext('2d');
 
 			//initializing canvas
-			initCanvas("lightCanvas", "black", "0.5");
+			initCanvas("lightCanvas", "black", "1");
 
 			//initializing sliders
 			$(":range").rangeinput();
