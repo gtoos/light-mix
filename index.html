@@ -22,6 +22,7 @@
 					<input type="range" class="slider" id="green-slider" name="greenSlider" min="0" max="100" step ="5" value="10" />
 			    </div>
 			    <div class="messagepop pop" id="message-pop">
+			      <img id="message-image" src="resources/images/default.gif" />
 				  <p id="message-pop-text">Some instructions or something like that</p>
 				  <a class="close" href="/">Close</a>			    		
 			    </div>
@@ -53,16 +54,16 @@
 		      	function() { 
 		      		draw();
 		      		if(isLevelComplete(currentLevel)) { 
-		      			levelCleanUp();
-		      			currentLevel++;
-
 		      			//Checking if final
 		      			if(currentLevel < finalLevel) {
+		       				levelCleanUp(currentLevel);
+		      				currentLevel++;
 		      				initLevel(currentLevel);
 		      			} else {
 		      				console.log("game over");
 		      				showPopMessage("Game Over!", 5000);
 			      			currentLevel = 1;
+			      			// exit();
 		      			}
 
 		      		} else {

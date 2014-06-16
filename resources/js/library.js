@@ -28,6 +28,9 @@ var messages = {
 var scale = 255/100; 	// RGB value scale
 var tolerance = 6; 		// Tolerance set as +/- 6% (can change it according to UX feedback)
 
+var levelMoves = []; 	//This is to store the current level moves 
+var levelResults = [];	//This is to save the results of the level
+
 function initCanvas(canvasId, bgColor, opacity) {
 	var canvas = document.getElementById(canvasId);
 	h = parseInt(canvas.getAttribute("height"));
@@ -170,7 +173,8 @@ function draw() {
 
 	console.log("r = " + r); 	
 	console.log("g = " + g); 	
-	console.log("b = " + b); 	
+	console.log("b = " + b); 
+	levelMoves.push(r+":"+g+":"+b);	
 	updateSpotlight(r, g, b);
 }
 
@@ -193,9 +197,14 @@ function isLevelComplete(currentLevel) {
 	return false;
 }
 
-function levelCleanUp() {
-	console.log("level complete");
-	showPopMessage("Level complete", -1);
+function levelCleanUp(currentLevel) {
+	console.log("currentLevel = "+currentLevel);
+	levelResults = levelMoves;
+	var imagesPath = "resources/images/";
+	imageFileName = "level-complete-" + currentLevel.toString() + ".jpg";
+	var imgSrc = imagesPath.concat(imageFileName);
+	$("#message-image").attr("src", imgSrc);
+	showPopMessage(messages.complete, -1);
 }
 
 function toRGBColor(r, g, b) {
