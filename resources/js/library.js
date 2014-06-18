@@ -1,5 +1,5 @@
 //Global settings
-var levelColors = ["255:0:0", "0:255:0", "0:0:255", "255:255:0", "255:0:255", "0:255:255"];
+var levelColors = ["255:255:0", "255:0:255", "0:255:255", "128:0:0", "128:255:0", "255:165:0", "255:128:255"];
 var levelSpec = {
     "level-1": {
         "r": 255,
@@ -66,21 +66,38 @@ function initCanvas(canvasId, bgColor, opacity) {
 function initStage(levelColor) {
 	var canvas = document.getElementById("lightCanvas");
 	var canvasContext = canvas.getContext('2d');
+
+	drawLine(canvasContext, 125, 0, 125, 400, "white", 3, 1);
+	drawLine(canvasContext, 125, 400, 0, 580, "white", 3, 1);
+	drawLine(canvasContext, 125, 400, 840, 400, "white", 3, 1);
+	drawLine(canvasContext, 840, 0, 840, 400, "white", 3, 1);
+	drawLine(canvasContext, 840, 400, 920, 580, "white", 3, 1);
 	
 	//Creating stage lights
-	var cX = parseInt(canvas.width/3);
-	var cY = parseInt(canvas.height/3);
+	var cX =  parseInt(canvas.width/2);
+	var delta = 100;
+	var cY =  150; // parseInt(canvas.height/3);
 	var radius = 30;
 
+	canvasContext.save();
+
 	canvasContext.beginPath();
-	canvasContext.arc(cX, cY, radius, 0, 2*Math.PI, false);
+	canvasContext.arc(cX - delta, cY, radius, 0, 2*Math.PI, false);
 	canvasContext.fillStyle = levelColor;
+	canvasContext.fill();
+	canvasContext.arc(cX + delta, cY, radius, 0, 2*Math.PI, false);
+	canvasContext.fill();	
+
+ 	canvasContext.shadowColor = "#555";
+    canvasContext.shadowBlur = 10;
+    canvasContext.shadowOffsetX = -3;
+    canvasContext.shadowOffsetY = 3;
+	canvasContext.fill();
+    canvasContext.shadowOffsetX = 3;
 	canvasContext.fill();
 
 
-	canvasContext.arc(2*cX, cY, radius, 0, 2*Math.PI, false);
-	canvasContext.fillStyle = levelColor;
-	canvasContext.fill();	
+	canvasContext.restore();
 }
 
 function initSpotlight() {
@@ -111,7 +128,7 @@ function initSpotlight() {
 	canvasContext.restore();
 
 	//apply styling
-	canvasContext.fillStyle = '#8ED6FF';
+	canvasContext.fillStyle = 'black';
 	canvasContext.fill();
 	canvasContext.lineWidth = 5;
 	canvasContext.strokeStyle = 'black';
@@ -222,10 +239,10 @@ function drawBeam(fromX, fromY, toX, toY, color, intensity) {
 	//preparing canvas
 	canvasContext.beginPath();
 	canvasContext.save();
-	canvasContext.moveTo(fromX, fromY); //(158, 0); //TODO remove hard coding
+	canvasContext.moveTo(fromX, fromY); 
 
 	//Setting line properties
-	canvasContext.lineTo(toX, toY);     //(360, 500); //TODO remove hard coding
+	canvasContext.lineTo(toX, toY);     
 	canvasContext.lineWidth = 2;
 	canvasContext.strokeStyle = color;
 	canvasContext.globalAlpha = computeTransparency(intensity);
@@ -238,8 +255,25 @@ function drawBeam(fromX, fromY, toX, toY, color, intensity) {
 	canvasContext.restore();
 }
 
+function drawLine(canvasContext, fromX, fromY, toX, toY, color, width, transparency) {
+	//preparing canvas
+	canvasContext.beginPath();
+	canvasContext.save();
+	canvasContext.moveTo(fromX, fromY); 
+
+	//Setting line properties
+	canvasContext.lineTo(toX, toY);     
+	canvasContext.lineWidth = width;
+	canvasContext.strokeStyle = color;
+	canvasContext.globalAlpha = transparency;
+	canvasContext.stroke();
+
+	//restoring
+	canvasContext.restore();
+}
+
 function computeTransparency(intensity) {
-	return 0.75 * intensity/(scale * 100);
+	return intensity/(scale * 100);
 }
 
 function isLevelComplete(currentLevel) {

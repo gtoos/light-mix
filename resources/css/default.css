@@ -25,32 +25,35 @@ body {
 
 .light-source-red {
 	float: left;
-	border: dotted;
-	border-color: red;
+	border:solid ;
+	border-color: black;
 	width: 200px;
 	height: 100px;
 	margin-left: 50px;
 	margin-right: 50px;
+	background-color: #FE0002;
 }
 
 .light-source-blue {
 	float: left;
-	border: dotted;
-	border-color: blue;
+	border: solid;
+	border-color: black;
 	width: 200px;
 	height: 100px;
 	margin-left: 50px;
 	margin-right: 50px;
+	background-color: #5F91FF;
 }
 
 .light-source-green {
 	float: left;
-	border: dotted;
-	border-color: green;
+	border: solid;
+	border-color: black;
 	width: 200px;
 	height: 100px;
 	margin-left: 50px;
 	margin-right: 50px;
+	background-color: #9ACD32;
 }
 
 a.selected {

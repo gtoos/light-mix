@@ -1,7 +1,7 @@
 
 /* slider root element */
 .slider {
-    background:#3C72E6; /* make this color dynamic */
+    background:#ddd; /* make this color dynamic */
     height:9px;
     position:relative;
     cursor:pointer;
