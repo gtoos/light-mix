@@ -133,7 +133,6 @@ function initSliderValues(value) {
 }
 
 function initLevel(i) {
-
 	//initializing slider values
 	initSliderValues(0);
 
@@ -150,7 +149,6 @@ function initLevel(i) {
 	initStage(levelColor);
 
 	}
-
 
 	//initializing spotlight
 	initSpotlight();
@@ -260,6 +258,31 @@ function drawLine(canvasContext, fromX, fromY, toX, toY, color, width, transpare
 	canvasContext.restore();
 }
 
+
+function showPopMessage(msg, duration) {
+	$("#message-pop-text").text(msg);
+	setTimeout(function(){
+		$("#message-show").click();
+		if(duration>0){
+			closePopMessage(duration);	
+		}}, 300);
+}
+
+function closePopMessage(duration) {
+	setTimeout(function() {
+		deselect();
+	}, duration);
+}
+
+function showInstructions() {
+	showPopMessage("", -1);
+}
+
+function gameOver() {
+	$("#message-image").attr("src", "resources/images/game-over.jpg");
+	$("#message-image").show();
+}
+
 function computeTransparency(intensity) {
 	return intensity/(scale * 100);
 }
@@ -346,27 +369,3 @@ $(function() {
 $.fn.slideFadeToggle = function(easing, callback) {
     return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
 };
-
-function showPopMessage(msg, duration) {
-	$("#message-pop-text").text(msg);
-	setTimeout(function(){
-		$("#message-show").click();
-		if(duration>0){
-			closePopMessage(duration);	
-		}}, 300);
-}
-
-function closePopMessage(duration) {
-	setTimeout(function() {
-		deselect();
-	}, duration);
-}
-
-function showInstructions() {
-	showPopMessage("", -1);
-}
-
-function gameOver() {
-	$("#message-image").attr("src", "resources/images/game-over.jpg");
-	$("#message-image").show();
-}

@@ -1,4 +1,3 @@
-
 /* slider root element */
 .slider {
     background:#ddd; /* make this color dynamic */
@@ -54,4 +53,3 @@
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
-

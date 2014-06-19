@@ -3,6 +3,10 @@ body {
 	padding: 20px;
 }
 
+h1{
+	color: #888;
+	font-family: helvetica;
+}
 h2 {
 	color: white;
 	font: helvetica;
@@ -10,9 +14,10 @@ h2 {
 }
 
 .outer-wrapper {
-	border: dotted;
+	border: solid;
 	border-color: white;
-	width: 1080px;
+	width: 960px;
+	height: 706px;
 }
 
 .stage {

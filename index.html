@@ -29,28 +29,19 @@
 		        <br />		        
 			    <a class="close" href="/"><img src="resources/images/close-icon.svg" alt="Show" width="32" style="float:right" ></a>			    		
 			    <p id="message-pop-text">Some instructions or something like that</p>
-
 			</div>	
 	    <canvas id="lightCanvas" class="stage" width="920" height="600"></canvas>
    	    <canvas id="beamCanvas" class="beam" width="920" height="600"></canvas>
 	    </div>
-
 	    <script>
-			var canvas = document.getElementById('lightCanvas');
-			var canvasContext = canvas.getContext('2d');
 
-			//initializing canvas
-			initCanvas("lightCanvas", "black", "1");
-
-			//initializing sliders
-			$(":range").rangeinput();
-
-			//initialize level	
+	    	//Initializing
 			var currentLevel = 0;
 			var finalLevel = 7;
 
+			initCanvas("lightCanvas", "black", "1");
+			$(":range").rangeinput();
 			showInstructions();
-
 			initLevel(currentLevel);
 
 	      	// Handling slider event
