@@ -1,23 +1,6 @@
 //Global settings
-var levelColors = ["255:255:0", "255:0:255", "0:255:255", "128:0:0", "128:255:0", "255:165:0", "255:128:255"];
-var levelSpec = {
-    "level-1": {
-        "r": 255,
-        "g": 0,
-        "b": 0
-    },
-    "level-2": {
-        "r": 0,
-        "g": 255,
-        "b": 0
-    },
-    "level-3": {
-        "r": 0,
-        "g": 0,
-        "b": 255
-    }
-}; //TODO externalize as JSON spec file
-
+var levelColors = ["255:255:0", "255:0:255", "0:255:255", "128:0:0", "255:165:0", "255:255:255", "255:128:255"];
+var levelNames = ["Yellow", "Magenta", "Cyan", "Maroon", "Orange", "White", "Pink"];
 var messages = {
 	"hello": "Hello. Welcome to the game!",
 	"instructions": "Match the colour of the spot light to the colour of the balloons on the stage.",
@@ -154,7 +137,9 @@ function initLevel(i) {
 	//initializing slider values
 	initSliderValues(0);
 
-
+	if(i > 6) {
+		setTimeout(gameOver(), 10000);
+	} else {
 	var lR = levelColors[i].split(":")[0]; 
 	var lG = levelColors[i].split(":")[1];
 	var lB = levelColors[i].split(":")[2];
@@ -163,6 +148,9 @@ function initLevel(i) {
 
 	//initializing stage
 	initStage(levelColor);
+
+	}
+
 
 	//initializing spotlight
 	initSpotlight();
@@ -296,13 +284,35 @@ function isLevelComplete(currentLevel) {
 }
 
 function levelCleanUp(currentLevel) {
-	console.log("currentLevel = "+currentLevel);
-	var imagesPath = "resources/images/";
-	imageFileName = "level-complete-" + currentLevel.toString() + ".jpg";
-	var imgSrc = imagesPath.concat(imageFileName);
-	$("#message-image").attr("src", imgSrc);
-	showPopMessage(messages.complete, -1);
+
+	$("#message-image").hide();
+
+	var lR = levelColors[currentLevel].split(":")[0]; 
+	var lG = levelColors[currentLevel].split(":")[1];  
+	var lB = levelColors[currentLevel].split(":")[2]; 
+
+	console.log("currentLevel = " + currentLevel);
+	drawLevelResults(toRGBColor(lR, lG, lB), levelNames[currentLevel], parseInt(lR/scale), parseInt(lG/scale), parseInt(lB/scale));
+
 	clearBeamCanvas();
+}
+
+function drawLevelResults(levelColor, colorName, rPercent, gPercent, bPercent) {
+	$("#level-result").css("background-color", levelColor);
+	$("#level-result").css("border", "2px solid #000");
+	$("#level-result").css("font-weight", "bold");
+	$("#level-result").css("padding", "25px 25px 25px 25px");
+	$("#level-result").css("color", "white");
+	$("#level-result").css("font-family", "helvetica");
+	$("#level-result").css("text-shadow", "2px 1px 1px #000");
+
+	var html =  "<h2>"+ colorName + "</h2>" 
+				+ "Red: " + rPercent + "%  <br />" 
+				+ "Blue: " + bPercent + "% <br />"
+				+ "Green: " + gPercent + "% <br />";
+
+	$("#level-result").html(html);
+	showPopMessage("", -1);
 }
 
 function toRGBColor(r, g, b) {
@@ -353,5 +363,10 @@ function closePopMessage(duration) {
 }
 
 function showInstructions() {
-	showPopMessage(messages.instructions, -1);
+	showPopMessage("", -1);
+}
+
+function gameOver() {
+	$("#message-image").attr("src", "resources/images/game-over.jpg");
+	$("#message-image").show();
 }

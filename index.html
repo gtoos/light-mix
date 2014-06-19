@@ -21,12 +21,15 @@
 			    <div id="greenSource" class="light-source-green"> 
 					<input type="range" class="slider" id="green-slider" name="greenSlider" min="0" max="100" step ="5" value="10" />
 			    </div>
-			    <a href="/" id="message-show">Show</a>
+			    <a href="/" id="message-show"><img src="resources/images/show-message-icon.png" alt="Show" width="32" > </a>
 			</div>
 			<div class="messagepop pop" id="message-pop">
-		        <img id="message-image" src="resources/images/default.gif" />
+		        <div id="level-result" class= "color-info"></div>
+		        <img id="message-image" width="600" src="resources/images/instructions.png" />
+		        <br />		        
+			    <a class="close" href="/"><img src="resources/images/close-icon.svg" alt="Show" width="32" style="float:right" ></a>			    		
 			    <p id="message-pop-text">Some instructions or something like that</p>
-			    <a class="close" href="/">Close</a>			    		
+
 			</div>	
 	    <canvas id="lightCanvas" class="stage" width="920" height="600"></canvas>
    	    <canvas id="beamCanvas" class="beam" width="920" height="600"></canvas>
@@ -44,7 +47,7 @@
 
 			//initialize level	
 			var currentLevel = 0;
-			var finalLevel = 5;
+			var finalLevel = 7;
 
 			showInstructions();
 
@@ -55,25 +58,13 @@
 		      	function() { 
 		      		draw();
 		      		if(isLevelComplete(currentLevel)) { 
-		      			//Checking if final
-		      			if(currentLevel < finalLevel) {
 		       				levelCleanUp(currentLevel);
 		      				currentLevel++;
 		      				initLevel(currentLevel);
 		      			} else {
-		      				console.log("game over");
-		      				showPopMessage("Game Over!", 5000);
-			      			currentLevel = 1;
-			      			// exit();
-		      			}
-
-		      		} else {
 		      			console.log("Keep trying");
 		      		} 
 		    });
-
-		    // Handling exit event
-
 		</script>
 	</body>
 </html>
